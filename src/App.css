@@ -44,8 +44,14 @@
   border: thin solid black;
   padding: 5em;
   color: #000;
+  background-color: cyan;
 }
 
 #searchWeapon {
-  color: blue;
+  color: rgb(0, 255, 0);
+  background-color: yellow;
+}
+
+#body {
+  background-color: #ff00ff;
 }

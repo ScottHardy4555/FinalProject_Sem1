@@ -153,7 +153,7 @@ function App() {
   ];
 
   useEffect(() => {
-    if(localStorage){
+    if (localStorage) {
       const weaponsLocalStorage = JSON.parse(localStorage.getItem('weapons'));
 
       if (weaponsLocalStorage) {
@@ -171,7 +171,7 @@ function App() {
       localStorage.setItem('weapons', JSON.stringify(weapons));
       console.log('saved to local storage');
     }
-  };
+  }
 
   function searchWeapons() {
     let keywordArray = [];
@@ -207,19 +207,19 @@ function App() {
       });
       setSearchResults(searchResults);
     } else setSearchResults(allWeapons);
-  };
+  }
 
   function removeWeapon(weaponToDelete) {
     const updatedWeaponsArray = allWeapons.filter((weapon) => weapon.id !== weaponToDelete.id);
     saveWeapons(updatedWeaponsArray);
-  };
+  }
 
   function updateWeapon(updatedWeapon) {
     const updatedWeaponsArray = allWeapons.map((weapon) =>
       weapon.id === updatedWeapon.id ? { ...weapon, ...updatedWeapon } : weapon
     );
     saveWeapons(updatedWeaponsArray);
-  };
+  }
 
   const addWeapon = (newWeapon) => {
     saveWeapons([...allWeapons, newWeapon]);
@@ -227,68 +227,71 @@ function App() {
 
   // JSX stapler
   return (
-    <div className="container">
-      <div className="row" id="allWeapons">
-        <h3>Current Weapons</h3>
-        {/* Fills out weapon cards for display */}
-        {searchResults &&
-          searchResults.map((weapon) => (
-            <div className="col-md-3 mt-2" key={weapon.id}>
-              <Weapon weapon={weapon} removeWeapon={removeWeapon} updateWeapon={updateWeapon} />
-            </div>
-          ))}
-      </div>
-      {/* Button to construct weapon list DEPRECIATED */}
-      {/* {!allWeapons && (
+    <div id="body">
+      <div className="container">
+        <div id="clownHeader"></div>
+        <div className="row" id="allWeapons">
+          <h3>Clown Weapons</h3>
+          {/* Fills out weapon cards for display */}
+          {searchResults &&
+            searchResults.map((weapon) => (
+              <div className="col-md-3 mt-2" key={weapon.id}>
+                <Weapon weapon={weapon} removeWeapon={removeWeapon} updateWeapon={updateWeapon} />
+              </div>
+            ))}
+        </div>
+        {/* Button to construct weapon list DEPRECIATED */}
+        {/* {!allWeapons && (
         <button type="button" className="btn btn-success btn-lg mt-2" onClick={() => saveWeapons(weapons)}>
           Save Weapons
         </button>
       )} */}
 
-      <AddWeapon addWeapon={addWeapon} />
+        <AddWeapon addWeapon={addWeapon} />
 
-      <div className="row mt-4" id="searchWeapon">
-        <h3>Search Weapon</h3>
-        <div className="col-md-4">
-          <label htmlFor="txtKeywords" className="form-label">
-            Search by Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Dagger"
-            onChange={(evt) => setKeywords(evt.currentTarget.value)}
-            value={keywords}
-          />
-        </div>
-        <div className="col-md-4">
-          <label htmlFor="selectDie" className="form-label">
-            Select a die type
-          </label>
-          <select
-            name="selectDie"
-            id="selectDie"
-            className="form-select"
-            value={searchDie}
-            onChange={(evt) => setSearchDie(parseInt(evt.currentTarget.value))}
-          >
-            <option value="">Select Die...</option>
-            {_(allWeapons)
-              .map((weapon) => weapon.die_type)
-              .sort()
-              .uniq()
-              .map((die_type) => (
-                <option key={die_type} value={die_type}>
-                  d{die_type}
-                </option>
-              ))
-              .value()}
-          </select>
-        </div>
-        <div className="col-md-4">
-          <button type="button" className="btn btn-primary" onClick={searchWeapons}>
-            Search Weapons <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-          </button>
+        <div className="row mt-4" id="searchWeapon">
+          <h3>Search Weapon</h3>
+          <div className="col-md-4">
+            <label htmlFor="txtKeywords" className="form-label">
+              Search by Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Dagger"
+              onChange={(evt) => setKeywords(evt.currentTarget.value)}
+              value={keywords}
+            />
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="selectDie" className="form-label">
+              Select a die type
+            </label>
+            <select
+              name="selectDie"
+              id="selectDie"
+              className="form-select"
+              value={searchDie}
+              onChange={(evt) => setSearchDie(parseInt(evt.currentTarget.value))}
+            >
+              <option value="">Select Die...</option>
+              {_(allWeapons)
+                .map((weapon) => weapon.die_type)
+                .sort()
+                .uniq()
+                .map((die_type) => (
+                  <option key={die_type} value={die_type}>
+                    d{die_type}
+                  </option>
+                ))
+                .value()}
+            </select>
+          </div>
+          <div className="col-md-4">
+            <button type="button" className="btn btn-primary" onClick={searchWeapons}>
+              Search Weapons <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+            </button>
+          </div>
         </div>
       </div>
     </div>
