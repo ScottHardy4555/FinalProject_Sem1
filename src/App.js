@@ -158,7 +158,7 @@ function App() {
 
       if (weaponsLocalStorage) {
         saveWeapons(weaponsLocalStorage);
-      } else saveWeapons(weapons);
+      } else if (weaponsLocalStorage.length === 0) saveWeapons(weapons);
     } else {
       saveWeapons(weapons);
     }
