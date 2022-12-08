@@ -5,8 +5,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { nanoid } from 'nanoid';
 import React, { useState, useEffect } from 'react';
-import AddWeapon from './Components/AddWeapon';
-import Weapon from './Components/Weapon';
+import AddWeapon from './AddWeapon';
+import Weapon from './Weapon';
 // import { BrowserRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -227,7 +227,7 @@ function App() {
 
   // JSX stapler
   return (
-    <div className="container">
+    <div className="container my-5">
       <div className="row" id="allWeapons">
         <h3>Current Weapons</h3>
         {/* Fills out weapon cards for display */}
