@@ -225,11 +225,26 @@ function App() {
     saveWeapons([...allWeapons, newWeapon]);
   };
 
+  function honk() {
+    const audio = new Audio('sfx/honk.mp3');
+    audio.oncanplaythrough = function(){
+      audio.play();
+      }
+      
+      // audio.loop = true;
+      
+      audio.onended = function(){
+      audio.play();
+      }
+  }
+
   // JSX stapler
   return (
     <div id="body">
       <div className="container">
-        <div id="clownHeader"></div>
+        <div id="clownHeader">
+          <img src="images/clown.webp" alt="clown" onClick={honk}/>
+        </div>
         <div className="row" id="allWeapons">
           <h3>Clown Weapons</h3>
           {/* Fills out weapon cards for display */}
