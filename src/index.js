@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Header from './Components/Header';
+// import Header from './Components/Header';
 import Footer from './Components/Footer';
 import App from './Components/App';
 import reportWebVitals from './reportWebVitals';
@@ -9,11 +9,9 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <body>
-      <Header />
-      <div id="wrapper" className="content">
+    <body className='wrapper w-100'>
+      {/* <Header /> */}
         <App />
-      </div>
       <Footer />
     </body>
   </React.StrictMode>
