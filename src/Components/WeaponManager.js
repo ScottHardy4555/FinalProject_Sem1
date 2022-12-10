@@ -155,9 +155,9 @@ function App() {
     if (localStorage) {
       const weaponsLocalStorage = JSON.parse(localStorage.getItem('weapons'));
 
-      if (weaponsLocalStorage) {
+      if (weaponsLocalStorage && weaponsLocalStorage.length !== 0) {
         saveWeapons(weaponsLocalStorage);
-      } else if (weaponsLocalStorage.length === 0) saveWeapons(weapons);
+      } else saveWeapons(weapons);
     } else {
       saveWeapons(weapons);
     }
