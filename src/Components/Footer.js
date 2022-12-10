@@ -6,7 +6,7 @@ function Footer() {
         <div className="row">
           <div className="col-md-4" id="github">
             <a href="https://github.com/ScottHardy4555" className='text-light'>
-              <i class="bi bi-github"></i>
+              <i className="bi bi-github"></i>
               <span>Check out my Github!</span>
             </a>
           </div>

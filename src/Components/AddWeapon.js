@@ -161,7 +161,7 @@ function AddWeapon(props) {
           value={die_type}
           onChange={(evt) => setDie_type(parseInt(evt.currentTarget.value))}
         >
-          <option selected disabled>
+          <option value="" disabled>
             Choose a die...
           </option>
           <option value="1">d1</option>
