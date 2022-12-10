@@ -12,7 +12,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import _ from 'lodash';
 
 function App() {
-  const [allWeapons, setAllWeapons] = useState(null);
+  const [allWeapons, setAllWeapons] = useState([]);
   const [searchResults, setSearchResults] = useState(null);
   const [keywords, setKeywords] = useState('');
   const [searchDie, setSearchDie] = useState('');
