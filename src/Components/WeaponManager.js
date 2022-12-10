@@ -7,7 +7,6 @@ import { nanoid } from 'nanoid';
 import React, { useState, useEffect } from 'react';
 import AddWeapon from './AddWeapon';
 import Weapon from './Weapon';
-import { BrowserRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import _ from 'lodash';
