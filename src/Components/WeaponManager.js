@@ -2,7 +2,6 @@
 
 // import logo from './logo.svg';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { nanoid } from 'nanoid';
 import React, { useState, useEffect } from 'react';
 import AddWeapon from './AddWeapon';
@@ -16,6 +15,10 @@ function App() {
   const [searchResults, setSearchResults] = useState(null);
   const [keywords, setKeywords] = useState('');
   const [searchDie, setSearchDie] = useState('');
+  const [equippedWeapon, setEquippedWeapon] = useState(null);
+  const [atkRoll, setAtkRoll] = useState(0);
+  const [dmgRoll, setDmgRoll] = useState(0);
+  const [attacked, setAttacked] = useState(false);
 
   // Seed Data
   const weapons = [
@@ -151,15 +154,22 @@ function App() {
     },
   ];
 
+  // Initialize
   useEffect(() => {
     if (localStorage) {
       const weaponsLocalStorage = JSON.parse(localStorage.getItem('weapons'));
-
       if (weaponsLocalStorage && weaponsLocalStorage.length !== 0) {
         saveWeapons(weaponsLocalStorage);
       } else saveWeapons(weapons);
+
+      // console.log(equippedWeaponLocalStorage);
+      // const equippedWeaponLocalStorage = JSON.parse(localStorage.getItem('equippedWeapon'));
+      // if (equippedWeaponLocalStorage && equippedWeaponLocalStorage !== null)
+      //   setEquippedWeapon(equippedWeaponLocalStorage);
+      // else setEquippedWeapon(weapons[0]);
     } else {
       saveWeapons(weapons);
+      // setEquippedWeapon(weapons[0]);
     }
   }, []);
 
@@ -168,6 +178,7 @@ function App() {
     setSearchResults(weapons);
     if (localStorage) {
       localStorage.setItem('weapons', JSON.stringify(weapons));
+      localStorage.setItem('equippedWeapon', JSON.stringify(equippedWeapon));
       console.log('saved to local storage');
     }
   }
@@ -224,72 +235,125 @@ function App() {
     saveWeapons([...allWeapons, newWeapon]);
   };
 
+  function updateEquipped(weapon) {
+    setEquippedWeapon(weapon);
+    setAttacked(false);
+  }
+
+  function attack() {
+    setAttacked(true);
+    let result = 0;
+    for (let i = 0; i < equippedWeapon.die_num; i++) result += Math.floor(Math.random() * equippedWeapon.die_type) + 1;
+    setDmgRoll(result);
+    setAtkRoll(Math.floor(Math.random() * 20) + 1);
+  }
+
   // JSX stapler
   return (
-    <div className="container my-5">
-      <div className="row" id="allWeapons">
-        <h3>Current Weapons</h3>
-        {/* Fills out weapon cards for display */}
-        {searchResults &&
-          searchResults.map((weapon) => (
-            <div className="col-md-3 mt-2" key={weapon.id}>
-              <Weapon weapon={weapon} removeWeapon={removeWeapon} updateWeapon={updateWeapon} />
-            </div>
-          ))}
-      </div>
-      {/* Button to construct weapon list DEPRECIATED */}
-      {/* {!allWeapons && (
+    <div className="container my-5 d-flex justify-content-between">
+      <div className="col-md-9">
+        <div className="row mb-4" id="searchWeapon">
+          <h3>Search Weapon</h3>
+          <div className="col-md-4">
+            <label htmlFor="txtKeywords" className="form-label">
+              Search by Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Dagger"
+              onChange={(evt) => setKeywords(evt.currentTarget.value)}
+              value={keywords}
+            />
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="selectDie" className="form-label">
+              Select a die type
+            </label>
+            <select
+              name="selectDie"
+              id="selectDie"
+              className="form-select"
+              value={searchDie}
+              onChange={(evt) => setSearchDie(parseInt(evt.currentTarget.value))}
+            >
+              <option value="">Select Die...</option>
+              {_(allWeapons)
+                .map((weapon) => weapon.die_type)
+                .sort()
+                .uniq()
+                .map((die_type) => (
+                  <option key={die_type} value={die_type}>
+                    d{die_type}
+                  </option>
+                ))
+                .value()}
+            </select>
+          </div>
+          <div className="col-md-4 d-flex justify-content-start">
+            <button type="button" className="btn btn-primary mt-4" onClick={searchWeapons}>
+              Search Weapons <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+            </button>
+          </div>
+        </div>
+
+        <div className="row mb-4" id="allWeapons">
+          <h3>Current Weapons</h3>
+          {/* Fills out weapon cards for display */}
+          {searchResults &&
+            searchResults.map((weapon) => (
+              <div className="col-md-3 mt-2" key={weapon.id}>
+                <Weapon
+                  weapon={weapon}
+                  removeWeapon={removeWeapon}
+                  updateWeapon={updateWeapon}
+                  updateEquipped={updateEquipped}
+                  equipped={false}
+                />
+              </div>
+            ))}
+        </div>
+        {/* Button to construct weapon list DEPRECIATED */}
+        {/* {!allWeapons && (
         <button type="button" className="btn btn-success btn-lg mt-2" onClick={() => saveWeapons(weapons)}>
           Save Weapons
         </button>
       )} */}
 
-      <AddWeapon addWeapon={addWeapon} />
-
-      <div className="row mt-4" id="searchWeapon">
-        <h3>Search Weapon</h3>
-        <div className="col-md-4">
-          <label htmlFor="txtKeywords" className="form-label">
-            Search by Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Dagger"
-            onChange={(evt) => setKeywords(evt.currentTarget.value)}
-            value={keywords}
-          />
-        </div>
-        <div className="col-md-4">
-          <label htmlFor="selectDie" className="form-label">
-            Select a die type
-          </label>
-          <select
-            name="selectDie"
-            id="selectDie"
-            className="form-select"
-            value={searchDie}
-            onChange={(evt) => setSearchDie(parseInt(evt.currentTarget.value))}
-          >
-            <option value="">Select Die...</option>
-            {_(allWeapons)
-              .map((weapon) => weapon.die_type)
-              .sort()
-              .uniq()
-              .map((die_type) => (
-                <option key={die_type} value={die_type}>
-                  d{die_type}
-                </option>
-              ))
-              .value()}
-          </select>
-        </div>
-        <div className="col-md-4">
-          <button type="button" className="btn btn-primary" onClick={searchWeapons}>
-            Search Weapons <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-          </button>
-        </div>
+        <AddWeapon addWeapon={addWeapon} />
       </div>
+      {equippedWeapon && (
+        <div className="col-md-2" id="equippedWeapon">
+          <div id="equipHeader">
+            <h3>Equipped:</h3>
+          </div>
+          <div className="row" key={equippedWeapon.id}>
+            <Weapon
+              weapon={equippedWeapon}
+              removeWeapon={removeWeapon}
+              updateWeapon={updateWeapon}
+              updateEquipped={updateEquipped}
+              equipped={true}
+            />
+          </div>
+          <div id="attack">
+            <div id="attackHeader" className='mt-4 d-flex flex-column justify-content-center'>
+              <h2 className='text-center '>Attack</h2>
+              <button type="button" id="attackBtn" className="btn btn-danger" onClick={attack}>
+                Attack!
+              </button>
+              {attacked && (
+                <div>
+                  <p>You rolled a {atkRoll} on the attack!</p>
+                  <p>
+                    You dealt {dmgRoll} {equippedWeapon.dmg_type} damage!
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

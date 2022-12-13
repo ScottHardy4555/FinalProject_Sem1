@@ -10,19 +10,21 @@ import Spar from './Spar';
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <header className="container w-100 mx-0">
-          <nav className="navbar navbar-expand navbar-light bg-light w-100">
-            <div>
-              <ul className="navbar-nav">
-                <li id="nav-home" className="nav-item">
-                  <Link to='/'>Home</Link>
-                </li>
-                <li id="nav-manager" className="nav-item">
-                  <Link to="/manager">Armory</Link>
-                </li>
-              </ul>
+    <div className="">
+      <WeaponManager/>
+      {/* <BrowserRouter>
+        <header className="container mx-0 align-self-center">
+          <nav className="navbar navbar-expand navbar-light bg-light w-100 text-center">
+            <div className="navbar-nav d-flex flex-row justify-content-around w-100">
+              <div id="nav-home" className="nav-item">
+                <Link to="/">Home</Link>
+              </div>
+              <div id="nav-manager" className="nav-item">
+                <Link to="/manager">Armory</Link>
+              </div>
+              <div id="nav-spar" className="nav-item">
+                <Link to="/spar">Sparring Ring</Link>
+              </div>
             </div>
           </nav>
         </header>
@@ -33,7 +35,7 @@ function App() {
             <Route exact path="/manager" element={<WeaponManager />}></Route>
           </Routes>
         </main>
-      </BrowserRouter>
+      </BrowserRouter> */}
     </div>
   );
 }

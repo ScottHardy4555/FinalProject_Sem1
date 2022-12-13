@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWarning, faMagicWandSparkles } from '@fortawesome/free-solid-svg-icons';
+import { faWarning, faMagicWandSparkles, faHand} from '@fortawesome/free-solid-svg-icons';
 import './Weapon.css';
 
 function Weapon(props) {
@@ -73,7 +73,7 @@ function Weapon(props) {
   }
 
   return (
-    <div className="card ">
+    <div className="card p-0">
       <div className="card bg-primary">
         <img src={props.weapon.image} alt={props.weapon.name} className="p-2" />
         <div className="card-body">
@@ -86,17 +86,29 @@ function Weapon(props) {
               <li className="list-group-item">{buildPropertyList(props.weapon.properties)}</li>
               <li className="list-group-item">Weight: {props.weapon.weight} lb</li>
               <li className="list-group-item">{props.weapon.value} gp</li>
-              <button
-                type="button"
-                id="weaponDelete"
-                className="btn btn-danger"
-                onClick={() => props.removeWeapon(props.weapon)}
-              >
-                Delete Weapon <FontAwesomeIcon icon={faWarning}></FontAwesomeIcon>
-              </button>
-              <button type="button" className="btn btn-warning" onClick={() => setEditMode(true)}>
-                Edit <FontAwesomeIcon icon={faMagicWandSparkles}></FontAwesomeIcon>
-              </button>
+              {!props.equipped && (
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-success w-100"
+                    onClick={() => props.updateEquipped(props.weapon)}
+                  >
+                    Equip <FontAwesomeIcon icon={faHand}></FontAwesomeIcon>
+                  </button>
+
+                  <button type="button" className="btn btn-warning w-100" onClick={() => setEditMode(true)}>
+                    Edit <FontAwesomeIcon icon={faMagicWandSparkles}></FontAwesomeIcon>
+                  </button>
+                  <button
+                    type="button"
+                    id="weaponDelete"
+                    className="btn btn-danger w-100"
+                    onClick={() => props.removeWeapon(props.weapon)}
+                  >
+                    Delete Weapon <FontAwesomeIcon icon={faWarning}></FontAwesomeIcon>
+                  </button>
+                </div>
+              )}
             </ul>
           )}
           {editMode && (

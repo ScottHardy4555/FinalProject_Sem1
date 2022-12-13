@@ -9,7 +9,7 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <div className='wrapper w-100'>
+    <div className='wrapper w-100 min-vh-100'>
       {/* <Header /> */}
         <App />
       <Footer />

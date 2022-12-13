@@ -38,7 +38,9 @@
   }
 }
 
-#allWeapons, #searchWeapon {
+#allWeapons,
+#addWeapon {
+  background-color: rgb(205, 205, 205);
   border-radius: 5%;
   box-shadow: 5px 5px 5px 5px #000;
   border: thin solid black;
@@ -47,5 +49,30 @@
 }
 
 #searchWeapon {
+  background-color: rgb(205, 205, 205);
+  box-shadow: 2px 2px 2px 4px #000;
+  border: thin solid black;
+  padding: 5em;
+  color: #000;
+}
+
+#equippedWeapon {
+  background-color: rgb(205, 205, 205);
+  border-radius: 5%;
+  box-shadow: 2px 2px 0px 0px #000;
+  border: thin solid black;
+  padding: 1em;
+  height: fit-content;
+}
+
+#btn-attack {
+  margin: fit-content;
+}
+
+#searchWeapon {
   color: blue;
+}
+
+header {
+  min-width: 100%;
 }

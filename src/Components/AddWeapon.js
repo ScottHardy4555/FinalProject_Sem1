@@ -115,7 +115,7 @@ function AddWeapon(props) {
   }
 
   return (
-    <div className="row mt-5" id="addWeapon">
+    <div className="row mb-4" id="addWeapon">
       <h3>Add Weapon</h3>
       {/* NAME */}
       <div className="col-md-3" id="name-container">
@@ -266,6 +266,11 @@ function AddWeapon(props) {
                 </p>
               </li>
             ))}
+          {!properties && (
+            <li id="property-none">
+              <p>None</p>
+            </li>
+          )}
         </ul>
       </div>
 
