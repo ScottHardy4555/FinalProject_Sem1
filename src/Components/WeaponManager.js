@@ -59,7 +59,7 @@ function App() {
       properties: ['ammunition', 'loading', 'two-handed'],
       isMartial: false,
       isRanged: true,
-      image: 'images/lightCrossbow.jpg',
+      image: 'images/lightcrossbow.jpg',
     },
     {
       id: nanoid(),
