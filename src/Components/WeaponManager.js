@@ -161,15 +161,8 @@ function App() {
       if (weaponsLocalStorage && weaponsLocalStorage.length !== 0) {
         saveWeapons(weaponsLocalStorage);
       } else saveWeapons(weapons);
-
-      // console.log(equippedWeaponLocalStorage);
-      // const equippedWeaponLocalStorage = JSON.parse(localStorage.getItem('equippedWeapon'));
-      // if (equippedWeaponLocalStorage && equippedWeaponLocalStorage !== null)
-      //   setEquippedWeapon(equippedWeaponLocalStorage);
-      // else setEquippedWeapon(weapons[0]);
     } else {
       saveWeapons(weapons);
-      // setEquippedWeapon(weapons[0]);
     }
   }, []);
 
@@ -190,16 +183,10 @@ function App() {
       keywordArray = keywords.toLowerCase().split(' ');
     }
 
-    // if (searchDie) {
-    //   keywordArray.push(searchDie.toString());
-    // }
-
     if (keywordArray.length > 0 || searchDie) {
       const searchResults = allWeapons.filter((weapon) => {
         let nameBool = keywordArray.length > 0 ? false : true;
         let dieBool = searchDie ? false : true;
-        // let nameBool = false;
-        // let dieBool = false;
 
         for (const word of keywordArray) {
           if (weapon.name.toLowerCase().includes(word) || weapon.die_type === parseInt(word)) {
@@ -337,8 +324,8 @@ function App() {
             />
           </div>
           <div id="attack">
-            <div id="attackHeader" className='mt-4 d-flex flex-column justify-content-center'>
-              <h2 className='text-center '>Attack</h2>
+            <div id="attackHeader" className="mt-4 d-flex flex-column justify-content-center">
+              <h2 className="text-center ">Attack</h2>
               <button type="button" id="attackBtn" className="btn btn-danger" onClick={attack}>
                 Attack!
               </button>
