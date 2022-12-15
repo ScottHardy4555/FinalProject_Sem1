@@ -302,7 +302,7 @@ function App() {
           {/* Fills out weapon cards for display */}
           {searchResults &&
             searchResults.map((weapon) => (
-              <div className="col-md-3 mt-2" key={weapon.id}>
+              <div className="col-md-4 mt-2" key={weapon.id}>
                 <Weapon
                   weapon={weapon}
                   removeWeapon={removeWeapon}
